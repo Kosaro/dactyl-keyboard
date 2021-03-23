@@ -31,7 +31,7 @@
      :connector {:external  (get confs :configuration-use-external-holder?)
                  :trrs      (get confs :configuration-use-trrs?)
                  :micro-usb (get confs :configuration-use-promicro-usb-hole?)}
-     :form      {:hotswap          (get confs :configuration-use-hotswap?)
+     :form      {:hotswap          (get confs :configuration-use-hotswap
                  :thumb-cluster-offset-x   (get confs :configuration-thumb-cluster-offset-x)
                  :thumb-cluster-offset-y   (get confs :configuration-thumb-cluster-offset-y)
                  :thumb-cluster-offset-z   (get confs :configuration-thumb-cluster-offset-z)
@@ -74,7 +74,7 @@
                :thumb-beta    (get confs :configuration-thumb-beta)
                :thumb-tenting (get confs :configuration-thumb-tenting-angle)}
    :connector {:external (get confs :configuration-use-external-holder?)}
-   :form      {:hotswap         (get confs :configuration-use-hotswap?)
+   :form      {:hotswap         (get confs :configuration-use-hotswap)
                :thumb-offset-x  (get confs :configuration-thumb-offset-x)
                :thumb-offset-y  (get confs :configuration-thumb-offset-y)
                :thumb-offset-z  (get confs :configuration-thumb-offset-z)
