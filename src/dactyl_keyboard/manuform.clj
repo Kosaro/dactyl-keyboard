@@ -446,8 +446,8 @@
 
 (defn thumb [c]
   (union
-   (thumb-1x-layout c  (single-plate c))
-   (thumb-15x-layout c (rotate (/ pi 2) [0 0 1] (single-plate c)))
+   (thumb-1x-layout c (single-plate c))
+   (thumb-15x-layout c (single-plate c))
    (thumb-15x-layout c larger-plate)))
 
 (def thumb-post-tr

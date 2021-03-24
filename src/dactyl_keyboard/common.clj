@@ -243,6 +243,7 @@
         pin-hole-radius (case use-hotswap?
                               true (/ 3.3 2)
                               0)
+        is-right?        (get c :is-right?)
         plate-projection?   (get c :configuration-plate-projection? false)
         fill-in             (translate [0 0 (/ plate-thickness 2)] (cube alps-width alps-height plate-thickness))
         holder-thickness    1.65
@@ -322,10 +323,12 @@
                                  (translate [0 3 hotswap-base-z-offset]))
         hotswap-holder      (difference swap-holder
                                         main-axis-hole
-                                        plus-hole
-                                        minus-hole
-                                        plus-hole-mirrored
-                                        minus-hole-mirrored
+                                        (if is-right?
+                                          plus-hole
+                                          plus-hole-mirrored)
+                                        (if is-right?
+                                          minus-hole
+                                          minus-hole-mirrored)
                                         friction-hole-left
                                         friction-hole-right
                                         hotswap-base-shape)]

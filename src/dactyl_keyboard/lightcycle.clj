@@ -108,7 +108,7 @@
         use-alps?            (get c :configuration-use-alps?)
         use-lastrow?         (get c :configuration-use-lastrow?)
         hide-last-pinky?     (get c :configuration-hide-last-pinky?)
-        rotation-for-keyhole (if use-alps? 0 270)
+        rotation-for-keyhole (if use-alps? 0 0)
         columns              (range 0 ncols)
         rows                 (frows c)
         last-pinky-location  (fn [column row]
