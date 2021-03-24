@@ -240,6 +240,9 @@
                               :choc true
                               false)
         use-hotswap?        (get c :configuration-use-hotswap?)
+        pin-hole-radius (case use-hotswap?
+                              true (/ 3.3 2)
+                              0)
         plate-projection?   (get c :configuration-plate-projection? false)
         fill-in             (translate [0 0 (/ plate-thickness 2)] (cube alps-width alps-height plate-thickness))
         holder-thickness    1.65
@@ -298,16 +301,16 @@
         ; for the main axis
         main-axis-hole      (->> (cylinder (/ 4.0 2) 10)
                                  (with-fn 12))
-        plus-hole           (->> (cylinder (/ 3.3 2) 10)
+        plus-hole           (->> (cylinder pin-hole-radius 10)
                                  (with-fn 8)
                                  (translate (if use-choc? [-5 4 0] [-3.81 2.54 0])))
-        minus-hole          (->> (cylinder (/ 3.3 2) 10)
+        minus-hole          (->> (cylinder pin-hole-radius 10)
                                  (with-fn 8)
                                  (translate (if use-choc? [0 6 0] [2.54 5.08 0])))
-        plus-hole-mirrored  (->> (cylinder (/ 3.3 2) 10)
+        plus-hole-mirrored  (->> (cylinder pin-hole-radius 10)
                                  (with-fn 8)
                                  (translate (if use-choc? [5 4 0] [3.81 2.54 0])))
-        minus-hole-mirrored (->> (cylinder (/ 3.3 2) 10)
+        minus-hole-mirrored (->> (cylinder pin-hole-radius 10)
                                  (with-fn 8)
                                  (translate (if use-choc? [0 6 0] [-2.54 5.08 0])))
         friction-hole       (->> (cylinder (if use-choc? 1 (/ 1.7 2)) 10)

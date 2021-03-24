@@ -31,7 +31,7 @@
      :connector {:external  (get confs :configuration-use-external-holder?)
                  :trrs      (get confs :configuration-use-trrs?)
                  :micro-usb (get confs :configuration-use-promicro-usb-hole?)}
-     :form      {:hotswap          (get confs :configuration-use-hotswap
+     :form      {:hotswap          (get confs :configuration-use-hotswap)
                  :thumb-cluster-offset-x   (get confs :configuration-thumb-cluster-offset-x)
                  :thumb-cluster-offset-y   (get confs :configuration-thumb-cluster-offset-y)
                  :thumb-cluster-offset-z   (get confs :configuration-thumb-cluster-offset-z)

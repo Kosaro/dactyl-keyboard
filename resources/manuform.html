@@ -165,12 +165,18 @@
         <h3>Form of the Case</h3>
       </label>
       <fieldset name="form" id="form">
-        <label for="form.hotswap">Dongguan Kaihua Electronics Co., Ltd (originally named Longhua
+        <label for="form.hotswap">Hotswap</label>
+        <select id="form.hotswap" name="form.hotswap">
+          <option value="false">None</option>
+          <option value="true">Dongguan Kaihua Electronics Co., Ltd (originally named Longhua Electronics)</option>
+          <option value="kailh">Kailh CPG151101S11</option>
+        </select>
+        <!--<label for="form.hotswap">Dongguan Kaihua Electronics Co., Ltd (originally named Longhua
           Electronics)'s Hotswap Socket?</label>
         <select id="form.hotswap" name="form.hotswap">
           <option value="false">No</option>
           <option value="true">Yes</option>
-        </select>
+        </select>-->
         <label for="form.thumb-offsets">Thumb cluster offsets</label>
         <label for="form.thumb-center-offsets">Center</label>
         <div class="row" id="form.thumb-offsets">
