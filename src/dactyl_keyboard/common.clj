@@ -230,7 +230,7 @@
                               :mx true
                               :mx-snap-in true
                               false) #_(get c :configuration-create-side-nub?)
-      nub-height           (case switch-type
+        nub-height          (case switch-type
                               :mx-snap-in 0.75
                               0) 
         use-alps?           (case switch-type
@@ -240,9 +240,8 @@
                               :choc true
                               false)
         use-hotswap?        (get c :configuration-use-hotswap?)
-        pin-hole-radius (case use-hotswap?
-                              true (/ 3.3 2)
-                              0)
+        pin-hole-radius     (/ 3.3 2)
+                              
         is-right?        (get c :is-right?)
         plate-projection?   (get c :configuration-plate-projection? false)
         fill-in             (translate [0 0 (/ plate-thickness 2)] (cube alps-width alps-height plate-thickness))

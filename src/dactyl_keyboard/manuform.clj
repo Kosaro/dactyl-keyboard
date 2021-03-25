@@ -1419,7 +1419,11 @@
      (translate [0 0 -60] (cube 350 350 120)))))
 
 (defn model-left [c]
-  (mirror [-1 0 0] (model-right c)))
+(spit "things/key-holder.scad"
+      (write-scad (->> (mirror [-1 0 0] (single-plate c))
+                       (translate [0 0 3]))))
+  #_(mirror [-1 0 0] (model-right c))
+                       )
 
 (defn plate-right [c]
   (let [use-screw-inserts? (get c :configuration-use-screw-inserts?)
@@ -1521,5 +1525,6 @@
 #_(spit "things/test.scad"
         (write-scad
          (difference usb-holder usb-holder-hole)))
+
 
 #_(defn -main [dum] 1)  ; dummy to make it easier to batc
