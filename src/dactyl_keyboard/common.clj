@@ -241,6 +241,10 @@
                               false)
         use-hotswap?        (get c :configuration-use-hotswap?)
         pin-hole-radius     (/ 3.3 2)
+        friction-hole-radius (case use-hotswap?
+                                :kailh (/ 2.0 2)
+                                (/ 1.7 2)
+        )
                               
         is-right?        (get c :is-right?)
         plate-projection?   (get c :configuration-plate-projection? false)
@@ -299,7 +303,7 @@
         swap-holder         (->> (cube (+ keyswitch-width 3) (/ (+ keyswitch-height 3) 2) 3)
                                  (translate [0 (/ (+ keyswitch-height 3) 4) swap-holder-z-offset]))
         kailh-hotswap-holder-ledge-length 3.0
-        kailh-holder-body-thickness 3.7
+        kailh-holder-body-thickness 3.6
         swap-holder-kailh        (->> (cube (+ keyswitch-width 3.3) (+ (/ (+ keyswitch-height 3.3) 2)
                                        kailh-hotswap-holder-ledge-length) kailh-holder-body-thickness)
                                  (translate [0 (- (/ (+ keyswitch-height 3.3) 4) 
@@ -307,40 +311,40 @@
         ; for the main axis
         main-axis-hole      (->> (cylinder (/ 4.0 2) 10)
                                  (with-fn 12))
-        plus-hole           (->> (cylinder pin-hole-radius 10)
+        plus-hole           (->> (cylinder pin-hole-radius 5)
                                  (with-fn 8)
                                  (translate (if use-choc? [-5 4 0] [-3.81 2.54 0])))
-        minus-hole          (->> (cylinder pin-hole-radius 10)
+        minus-hole          (->> (cylinder pin-hole-radius 5)
                                  (with-fn 8)
                                  (translate (if use-choc? [0 6 0] [2.54 5.08 0])))
-        plus-hole-mirrored  (->> (cylinder pin-hole-radius 10)
+        plus-hole-mirrored  (->> (cylinder pin-hole-radius 5)
                                  (with-fn 8)
                                  (translate (if use-choc? [5 4 0] [3.81 2.54 0])))
-        minus-hole-mirrored (->> (cylinder pin-hole-radius 10)
+        minus-hole-mirrored (->> (cylinder pin-hole-radius 5)
                                  (with-fn 8)
                                  (translate (if use-choc? [0 6 0] [-2.54 5.08 0])))
-        friction-hole       (->> (cylinder (if use-choc? 1 (/ 1.7 2)) 10)
+        friction-hole       (->> (cylinder (if use-choc? 1 friction-hole-radius) 10)
                                  (with-fn 8))
         friction-hole-right (translate [(if use-choc? 5.5 5) 0 0] friction-hole)
         friction-hole-left  (translate [(if use-choc? -5.5 -5) 0 0] friction-hole)
         hotswap-base-z-offset (if use-choc? 0.2 -2.6)
-        hotswap-base-z-offset-kailh (if use-choc? 0.2 -2.85)
+        hotswap-base-z-offset-kailh (if use-choc? 0.2 -2.65)
         hotswap-base-shape  (->> (cube 19 (if use-choc? 11.5 8.2) 3.5)
                                  (translate [0 3 hotswap-base-z-offset]))
-        hotswap-base-shape-kailh  (union (->> (cube (/ 12 2) (if use-choc? 11.5 6.2) 3.5)
-                                            (translate [(/ 12 4) 3.825 hotswap-base-z-offset-kailh]))
-                                          (->> (cube 12 (if use-choc? 11.5 4.3) 3.5)
+        hotswap-base-shape-kailh  (union (->> (cube (/ 12.3 2) (if use-choc? 11.5 6.35) 3.5) ; wide side socket holder
+                                            (translate [(/ 12.3 4) 3.825 hotswap-base-z-offset-kailh]))
+                                          (->> (cube 12 (if use-choc? 11.5 4.45) 3.5)      ; narrow side socket holder
                                             (translate [(/ -12 4) 4.775 hotswap-base-z-offset-kailh]))
-                                          (->> (cube 4.5 (if use-choc? 11.5 3) 3.65)
+                                          (->> (cube 4.5 (if use-choc? 11.5 3) 3.7) ; minus pad indent
                                             (translate [-6.5 5 hotswap-base-z-offset-kailh ]))
-                                          (->> (cube 3.2 (if use-choc? 11.5 3) 3.65)
+                                          (->> (cube 3.2 (if use-choc? 11.5 3) 3.7) ; plus pad indent
                                             (translate [7.2 2.5 hotswap-base-z-offset-kailh ])))
 
-        kailh-clip-thickness              0.25
-        hotswap-holder-clip-kailh (union (->> (cube 10.5 0.7 kailh-clip-thickness)
+        kailh-clip-thickness              0.35
+        hotswap-holder-clip-kailh (union (->> (cube 11 0.7 kailh-clip-thickness) ; big clip
                                         (translate [1 7 (- swap-holder-z-offset ( / ( - kailh-holder-body-thickness kailh-clip-thickness) 2))]))
-                                        (->> (cube 2.893 0.2 kailh-clip-thickness)
-                                        (translate [3.251 0.825 (- swap-holder-z-offset ( / ( - kailh-holder-body-thickness kailh-clip-thickness) 2))]))
+                                        #_(->> (cube 2.69 0.17 kailh-clip-thickness) ; small clip
+                                        (translate [3 0.72 (- swap-holder-z-offset ( / ( - kailh-holder-body-thickness kailh-clip-thickness) 2))]))
                                   )
         
         hotswap-holder      (difference swap-holder
@@ -354,18 +358,15 @@
                                         friction-hole-left
                                         friction-hole-right
                                         hotswap-base-shape)
-        hotswap-holder-kailh (union (difference swap-holder-kailh
+        hotswap-holder-kailh (difference (union (difference swap-holder-kailh
+                                        hotswap-base-shape-kailh)
+                                        hotswap-holder-clip-kailh)
                                         main-axis-hole
-                                        (if is-right?
-                                          plus-hole
-                                          plus-hole-mirrored)
-                                        (if is-right?
-                                          minus-hole
-                                          minus-hole-mirrored)
+                                        plus-hole-mirrored
+                                        minus-hole-mirrored
                                         friction-hole-left
                                         friction-hole-right
-                                        hotswap-base-shape-kailh)
-                                        hotswap-holder-clip-kailh)]
+                                        )]
     (difference (union plate-half
                        (->> plate-half
                             (mirror [1 0 0])
@@ -373,7 +374,9 @@
                        (if plate-projection? fill-in ())
                        (if (not use-alps?)
                           (case use-hotswap?
-                            :kailh hotswap-holder-kailh
+                            :kailh (if is-right?
+                              (mirror [-1 0 0] hotswap-holder-kailh)
+                              hotswap-holder-kailh)
                             :dongguan hotswap-holder
                             false ()
                             )
