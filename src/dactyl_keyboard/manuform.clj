@@ -1419,10 +1419,10 @@
      (translate [0 0 -60] (cube 350 350 120)))))
 
 (defn model-left [c]
-;(spit "things/key-holder.scad"
- ;     (write-scad (->> (mirror [-1 0 0] (single-plate c))
-  ;                     (translate [0 0 3]))))
-  (mirror [-1 0 0] (model-right c))
+(spit "things/key-holder.scad"
+      (write-scad (->> (mirror [-1 0 0] (single-plate c))
+                       (translate [0 0 3]))))
+  ;(mirror [-1 0 0] (model-right c))
                        )
 
 (defn plate-right [c]

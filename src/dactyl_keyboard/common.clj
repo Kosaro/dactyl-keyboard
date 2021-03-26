@@ -303,7 +303,7 @@
         swap-holder         (->> (cube (+ keyswitch-width 3) (/ (+ keyswitch-height 3) 2) 3)
                                  (translate [0 (/ (+ keyswitch-height 3) 4) swap-holder-z-offset]))
         kailh-hotswap-holder-ledge-length 3.0
-        kailh-holder-body-thickness 3.6
+        kailh-holder-body-thickness 3.4
         swap-holder-kailh        (->> (cube (+ keyswitch-width 3.3) (+ (/ (+ keyswitch-height 3.3) 2)
                                        kailh-hotswap-holder-ledge-length) kailh-holder-body-thickness)
                                  (translate [0 (- (/ (+ keyswitch-height 3.3) 4) 
@@ -331,13 +331,13 @@
         hotswap-base-z-offset-kailh (if use-choc? 0.2 -2.65)
         hotswap-base-shape  (->> (cube 19 (if use-choc? 11.5 8.2) 3.5)
                                  (translate [0 3 hotswap-base-z-offset]))
-        hotswap-base-shape-kailh  (union (->> (cube (/ 12.3 2) (if use-choc? 11.5 6.35) 3.5) ; wide side socket holder
+        hotswap-base-shape-kailh  (union (->> (cube (/ 12.3 2) (if use-choc? 11.5 6.35) 3.6) ; wide side socket holder
                                             (translate [(/ 12.3 4) 3.825 hotswap-base-z-offset-kailh]))
-                                          (->> (cube 12 (if use-choc? 11.5 4.45) 3.5)      ; narrow side socket holder
+                                          (->> (cube 12 (if use-choc? 11.5 4.45) 3.6)      ; narrow side socket holder
                                             (translate [(/ -12 4) 4.775 hotswap-base-z-offset-kailh]))
-                                          (->> (cube 4.5 (if use-choc? 11.5 3) 3.7) ; minus pad indent
+                                          (->> (cube 4.5 (if use-choc? 11.5 3) 3.8) ; minus pad indent
                                             (translate [-6.5 5 hotswap-base-z-offset-kailh ]))
-                                          (->> (cube 3.2 (if use-choc? 11.5 3) 3.7) ; plus pad indent
+                                          (->> (cube 3.2 (if use-choc? 11.5 3) 3.8) ; plus pad indent
                                             (translate [7.2 2.5 hotswap-base-z-offset-kailh ])))
 
         kailh-clip-thickness              0.35
