@@ -71,6 +71,11 @@
                                       "choc" :choc
                                       "kailh" :kailh
                                       :box)
+        param-hotswap                 (case (get p "form.hotswap")
+                                      "true" :dongguan
+                                      "dongguan" :dongguan
+                                      "kailh" :kailh
+                                      false)
         param-inner-column          (case (get p "keys.inner-column")
                                       "innie" :innie
                                       "ergodox" :outie
@@ -88,7 +93,6 @@
         param-trrs-connector        (parse-bool (get p "connector.trrs"))
         param-use-promicro-usb-hole (parse-bool (get p "connector.micro-usb"))
 
-        param-hotswap               (parse-bool (get p "form.hotswap"))
         param-stagger               (parse-bool (get p "form.stagger"))
         param-keyboard-z-offset     (parse-int (get p "form.height-offset"))
         param-wide-pinky            (parse-bool (get p "form.wide-pinky"))

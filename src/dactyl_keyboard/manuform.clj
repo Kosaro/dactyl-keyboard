@@ -1422,7 +1422,7 @@
 (spit "things/key-holder.scad"
       (write-scad (->> (mirror [-1 0 0] (single-plate c))
                        (translate [0 0 3]))))
-  #_(mirror [-1 0 0] (model-right c))
+  (mirror [-1 0 0] (model-right c))
                        )
 
 (defn plate-right [c]
