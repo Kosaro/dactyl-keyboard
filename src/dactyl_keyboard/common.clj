@@ -250,6 +250,10 @@
         plate-projection?   (get c :configuration-plate-projection? false)
         fill-in             (translate [0 0 (/ plate-thickness 2)] (cube alps-width alps-height plate-thickness))
         holder-thickness    1.65
+        kailh-hotswap-holder-ledge-length 3.0 ; number of milimiters that the hotswap holder extends past the halfway point
+        hotswap-holder-thickness-kailh    3.75 ; thickness of the holder in mm
+        kailh-clip-thickness              0.35; thickness of the clip to hold the kailh socket
+        kailh-hotswap-holder-cutout-thickness 2.46 ; thickness of cut out for holder, measured from bottom of holder
         top-wall            (case switch-type
                               :alps (->> (cube (+ keyswitch-width 3) 2.7 plate-thickness)
                                          (translate [0
@@ -302,12 +306,10 @@
         swap-holder-z-offset (if use-choc? 1.5 -1.5)
         swap-holder         (->> (cube (+ keyswitch-width 3) (/ (+ keyswitch-height 3) 2) 3)
                                  (translate [0 (/ (+ keyswitch-height 3) 4) swap-holder-z-offset]))
-        kailh-hotswap-holder-ledge-length 3.0
-        kailh-holder-body-thickness 3.6
         swap-holder-kailh        (->> (cube (+ keyswitch-width 3.3) (+ (/ (+ keyswitch-height 3.3) 2)
-                                       kailh-hotswap-holder-ledge-length) kailh-holder-body-thickness)
+                                       kailh-hotswap-holder-ledge-length) hotswap-holder-thickness-kailh)
                                  (translate [0 (- (/ (+ keyswitch-height 3.3) 4) 
-                                       (/ kailh-hotswap-holder-ledge-length 2)) swap-holder-z-offset]))
+                                       (/ kailh-hotswap-holder-ledge-length 2)) (/ (- hotswap-holder-thickness-kailh) 2)]))
         ; for the main axis
         main-axis-hole      (->> (cylinder (/ 4.0 2) 10)
                                  (with-fn 12))
@@ -331,20 +333,19 @@
         hotswap-base-z-offset-kailh (if use-choc? 0.2 -2.65)
         hotswap-base-shape  (->> (cube 19 (if use-choc? 11.5 8.2) 3.5)
                                  (translate [0 3 hotswap-base-z-offset]))
-        hotswap-base-shape-kailh  (union (->> (cube (/ 12.3 2) (if use-choc? 11.5 6.35) 3.5) ; wide side socket holder
-                                            (translate [(/ 12.3 4) 3.825 hotswap-base-z-offset-kailh]))
-                                          (->> (cube 12 (if use-choc? 11.5 4.45) 3.5)      ; narrow side socket holder
-                                            (translate [(/ -12 4) 4.775 hotswap-base-z-offset-kailh]))
-                                          (->> (cube 4.5 (if use-choc? 11.5 3) 3.7) ; minus pad indent
-                                            (translate [-6.5 5 hotswap-base-z-offset-kailh ]))
-                                          (->> (cube 3.2 (if use-choc? 11.5 3) 3.7) ; plus pad indent
-                                            (translate [7.2 2.5 hotswap-base-z-offset-kailh ])))
+        hotswap-base-shape-kailh  (union (->> (cube (/ 12.3 2) (if use-choc? 11.5 6.35) kailh-hotswap-holder-cutout-thickness) ; wide side socket holder
+                                            (translate [(/ 12.3 4) 3.825 (- (/ kailh-hotswap-holder-cutout-thickness 2) hotswap-holder-thickness-kailh)]))
+                                          (->> (cube 12 (if use-choc? 11.5 4.45) kailh-hotswap-holder-cutout-thickness)      ; narrow side socket holder
+                                            (translate [(/ -12 4) 4.775 (- (/ kailh-hotswap-holder-cutout-thickness 2) hotswap-holder-thickness-kailh)]))
+                                          (->> (cube 4.5 (if use-choc? 11.5 3) (+ kailh-hotswap-holder-cutout-thickness 0.2)) ; minus pad indent
+                                            (translate [-6.5 5 (- (/ kailh-hotswap-holder-cutout-thickness 2) hotswap-holder-thickness-kailh)]))
+                                          (->> (cube 3.2 (if use-choc? 11.5 3)(+ kailh-hotswap-holder-cutout-thickness 0.2) ) ; plus pad indent
+                                            (translate [7.2 2.5 (- (/ kailh-hotswap-holder-cutout-thickness 2) hotswap-holder-thickness-kailh)])))
 
-        kailh-clip-thickness              0.35
         hotswap-holder-clip-kailh (union (->> (cube 11 0.7 kailh-clip-thickness) ; big clip
-                                        (translate [1 7 (- swap-holder-z-offset ( / ( - kailh-holder-body-thickness kailh-clip-thickness) 2))]))
+                                        (translate [1 7 (- (/ kailh-clip-thickness 2) hotswap-holder-thickness-kailh)]))
                                         #_(->> (cube 2.69 0.17 kailh-clip-thickness) ; small clip
-                                        (translate [3 0.72 (- swap-holder-z-offset ( / ( - kailh-holder-body-thickness kailh-clip-thickness) 2))]))
+                                        (translate [3 0.72 (- (/ kailh-clip-thickness 2) hotswap-holder-thickness-kailh)]))
                                   )
         
         hotswap-holder      (difference swap-holder
