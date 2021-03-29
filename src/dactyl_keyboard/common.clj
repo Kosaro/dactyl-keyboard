@@ -526,7 +526,7 @@
   (placement-function c
                       screw-insert-bottom-radius
                       screw-insert-top-radius
-                      screw-insert-height))
+                      (+ screw-insert-height 0.2))) 
 (defn screw-insert-outers
   "TODO: doc.
    but basically it takes a function that places outer parts of screw holes with the following specs."

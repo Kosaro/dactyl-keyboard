@@ -1415,7 +1415,8 @@
             (union (trrs-usb-holder-space c)
                    (trrs-usb-jack c))
             (usb-holder-hole fusb-holder-position c)))
-         (external-holder-space c))))
+         (external-holder-space c))
+         ))
      (translate [0 0 -60] (cube 350 350 120)))))
 
 (defn model-left [c]
