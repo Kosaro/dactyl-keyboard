@@ -320,7 +320,7 @@
         x-rotation      (thumb-tenting c 10 :configuration-custom-thumb-tenting-x)
         y-rotation      (thumb-tenting c -23 :configuration-custom-thumb-tenting-y)
         z-rotation      (thumb-tenting c (case thumb-count :three 20 :five 25 10) :configuration-custom-thumb-tenting-z)
-        movement        (case thumb-count :five [-35 -16 -2] [-35 -14 -2])] ; this is the line I modified
+        movement        (case thumb-count :five [-35 -16 -2] [-35 -13.5 -2])] ; this is the line I modified
     (->> shape
       (rotate x-rotation [1 0 0])
       (rotate y-rotation [0 1 0])
