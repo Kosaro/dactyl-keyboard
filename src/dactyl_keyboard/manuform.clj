@@ -1349,7 +1349,7 @@
            (screw-insert c second-screw-x (- lastrow 0.8) bottom-radius top-radius height)
            (screw-insert c x-middle-last  y-middle-last   bottom-radius top-radius height)
            (screw-insert c 3              0               bottom-radius top-radius height)
-           (screw-insert c lastloc        1               bottom-radius top-radius height))))
+           #_(screw-insert c lastloc        1               bottom-radius top-radius height))))
 
 (def wire-post-height 7)
 (def wire-post-overhang 3.5)

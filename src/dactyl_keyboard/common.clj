@@ -251,7 +251,7 @@
         fill-in             (translate [0 0 (/ plate-thickness 2)] (cube alps-width alps-height plate-thickness))
         holder-thickness    1.65
         kailh-hotswap-holder-ledge-length 3.0 ; number of milimiters that the hotswap holder extends past the halfway point
-        hotswap-holder-thickness-kailh    3.75 ; thickness of the holder in mm
+        hotswap-holder-thickness-kailh    3.5 ; thickness of the holder in mm
         kailh-clip-thickness              0.35; thickness of the clip to hold the kailh socket
         kailh-hotswap-holder-cutout-thickness 2.46 ; thickness of cut out for holder, measured from bottom of holder
         top-wall            (case switch-type
@@ -548,11 +548,11 @@
         shift-up    (and (not (or shift-right shift-left)) (= row 0))
         shift-down  (and (not (or shift-right shift-left)) (>= row lastrow))
         position    (if shift-up
-                      (key-position c column row (map + (wall-locate2  0  1) [0 (/ mount-height 2) 0]))
+                      (key-position c column row (map + (wall-locate2  0  0.63) [0 (/ mount-height 2) 0]))
                       (if shift-down
-                        (key-position c column row (map - (wall-locate2  0 -1) [0 (/ mount-height 2) 0]))
+                        (key-position c column row (map - (wall-locate2  1 -0.45) [0 (/ mount-height 2) 0]))
                         (if shift-left
-                          (map + (left-key-position c row 0) (wall-locate3 -1 0))
+                          (map + (left-key-position c row 0) (wall-locate3 -0.47 0))
                           (key-position c column row (map + (wall-locate2  1  0) [(/ mount-width 2) 0 0])))))]
     (->> (screw-insert-shape bottom-radius top-radius height)
          (translate [(first position) (second position) (/ height 2)]))))
